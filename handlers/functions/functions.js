@@ -96,7 +96,7 @@ module.exports = async (client) => {
       const data = await Functions.findOne({ Guild: interaction.guild.id });
 
       if (data.Beta == true) {
-        return require(`${process.cwd()}/src/commands/${
+        return require(`${process.cwd()}/commands/${
           interaction.commandName
         }/${interaction.options.getSubcommand()}-beta`)(
           client,
@@ -106,7 +106,7 @@ module.exports = async (client) => {
           client.emit("errorCreate", err, interaction.commandName, interaction);
         });
       } else {
-        return require(`${process.cwd()}/src/commands/${
+        return require(`${process.cwd()}/commands/${
           interaction.commandName
         }/${interaction.options.getSubcommand()}`)(
           client,
@@ -117,7 +117,7 @@ module.exports = async (client) => {
         });
       }
     } catch {
-      return require(`${process.cwd()}/src/commands/${
+      return require(`${process.cwd()}/commands/${
         interaction.commandName
       }/${interaction.options.getSubcommand()}`)(
         client,

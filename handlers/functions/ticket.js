@@ -42,7 +42,7 @@ module.exports = async (client) => {
   // Transcript
 
   client.transcript = async function (interaction, channel) {
-    const template = fs.readFileSync("./src/config/template.html", "utf8");
+    const template = fs.readFileSync("./config/template.html", "utf8");
     const messages = await interaction.channel.messages.fetch({ limit: 100 });
 
     const dom = new jsdom.JSDOM(

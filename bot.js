@@ -72,7 +72,7 @@ const setupLavalinkClient = () => {
 
 const loadMusicEvents = () => {
   const eventFiles = fs
-    .readdirSync("./src/events/music")
+    .readdirSync("./events/music")
     .filter((file) => file.endsWith(".js"));
 
   for (const file of eventFiles) {
@@ -114,10 +114,10 @@ const setupWebhooks = () => {
 };
 
 const loadHandlers = () => {
-  const handlerDirs = fs.readdirSync("./src/handlers");
+  const handlerDirs = fs.readdirSync("./handlers");
 
   for (const dir of handlerDirs) {
-    const handlerFiles = fs.readdirSync(`./src/handlers/${dir}`);
+    const handlerFiles = fs.readdirSync(`./handlers/${dir}`);
 
     for (const file of handlerFiles) {
       const handlerPath = `./handlers/${dir}/${file}`;

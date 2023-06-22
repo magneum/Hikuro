@@ -21,9 +21,9 @@ module.exports = (client) => {
     );
   if (client.shard.ids[0] === 0) console.log(`\u001b[0m`);
 
-  fs.readdirSync("./src/interactions").forEach((dirs) => {
+  fs.readdirSync("./interactions").forEach((dirs) => {
     const commandFiles = fs
-      .readdirSync(`./src/interactions/${dirs}`)
+      .readdirSync(`./interactions/${dirs}`)
       .filter((files) => files.endsWith(".js"));
 
     if (client.shard.ids[0] === 0)
@@ -37,7 +37,7 @@ module.exports = (client) => {
       );
 
     for (const file of commandFiles) {
-      const command = require(`${process.cwd()}/src/interactions/${dirs}/${file}`);
+      const command = require(`${process.cwd()}/interactions/${dirs}/${file}`);
       client.commands.set(command.data.name, command);
       commands.push(command.data);
     }

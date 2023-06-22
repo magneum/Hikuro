@@ -13,9 +13,9 @@ module.exports = (client) => {
     );
   if (client.shard.ids[0] === 0) console.log(`\u001b[0m`);
 
-  fs.readdirSync("./src/events").forEach((dirs) => {
+  fs.readdirSync("./events").forEach((dirs) => {
     const events = fs
-      .readdirSync(`./src/events/${dirs}`)
+      .readdirSync(`./events/${dirs}`)
       .filter((files) => files.endsWith(".js"));
 
     if (client.shard.ids[0] === 0)

@@ -49,7 +49,7 @@ module.exports = async (client, interaction, args) => {
     );
 
   const jsonSongs = fs.readFileSync(
-    "./src/config/data/musictrivia.json",
+    "./config/data/musictrivia.json",
     "utf8"
   );
   const videoDataArray = JSON.parse(jsonSongs).songs;

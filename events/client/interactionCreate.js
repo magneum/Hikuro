@@ -253,49 +253,49 @@ module.exports = async (client, interaction) => {
   }
   // Tickets
   if (interaction.customId == "Bot_openticket") {
-    return require(`${process.cwd()}/src/commands/tickets/create.js`)(
+    return require(`${process.cwd()}/commands/tickets/create.js`)(
       client,
       interaction
     );
   }
 
   if (interaction.customId == "Bot_closeticket") {
-    return require(`${process.cwd()}/src/commands/tickets/close.js`)(
+    return require(`${process.cwd()}/commands/tickets/close.js`)(
       client,
       interaction
     );
   }
 
   if (interaction.customId == "Bot_claimTicket") {
-    return require(`${process.cwd()}/src/commands/tickets/claim.js`)(
+    return require(`${process.cwd()}/commands/tickets/claim.js`)(
       client,
       interaction
     );
   }
 
   if (interaction.customId == "Bot_transcriptTicket") {
-    return require(`${process.cwd()}/src/commands/tickets/transcript.js`)(
+    return require(`${process.cwd()}/commands/tickets/transcript.js`)(
       client,
       interaction
     );
   }
 
   if (interaction.customId == "Bot_openTicket") {
-    return require(`${process.cwd()}/src/commands/tickets/open.js`)(
+    return require(`${process.cwd()}/commands/tickets/open.js`)(
       client,
       interaction
     );
   }
 
   if (interaction.customId == "Bot_deleteTicket") {
-    return require(`${process.cwd()}/src/commands/tickets/delete.js`)(
+    return require(`${process.cwd()}/commands/tickets/delete.js`)(
       client,
       interaction
     );
   }
 
   if (interaction.customId == "Bot_noticeTicket") {
-    return require(`${process.cwd()}/src/commands/tickets/notice.js`)(
+    return require(`${process.cwd()}/commands/tickets/notice.js`)(
       client,
       interaction
     );

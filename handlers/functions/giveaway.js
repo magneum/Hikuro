@@ -50,7 +50,7 @@ module.exports = (client) => {
   client.giveawaysManager = manager;
 
   const events = fs
-    .readdirSync(`./src/events/giveaway`)
+    .readdirSync(`./events/giveaway`)
     .filter((files) => files.endsWith(".js"));
 
   for (const file of events) {

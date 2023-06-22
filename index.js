@@ -73,7 +73,7 @@ const shardLogs = new Discord.WebhookClient({
   token: webhook.shardLogs.token,
 });
 
-const manager = new Discord.ShardingManager("./src/bot.js", {
+const manager = new Discord.ShardingManager("./bot.js", {
   totalShards: "auto",
   token: process.env.DISCORD_TOKEN,
   respawn: true,
