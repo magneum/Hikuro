@@ -1,11 +1,10 @@
-const Discord = require("discord.js");
 const {
   joinVoiceChannel,
   VoiceConnectionStatus,
   entersState,
 } = require("@discordjs/voice");
 const fs = require("fs");
-const TriviaPlayer = require("../../assets/utils/TriviaPlayer.js");
+const TriviaPlayer = require("../../utils/TriviaPlayer.js");
 
 module.exports = async (client, interaction, args) => {
   const number = interaction.options.getNumber("number");
@@ -48,10 +47,7 @@ module.exports = async (client, interaction, args) => {
       interaction
     );
 
-  const jsonSongs = fs.readFileSync(
-    "./config/data/musictrivia.json",
-    "utf8"
-  );
+  const jsonSongs = fs.readFileSync("./config/data/musictrivia.json", "utf8");
   const videoDataArray = JSON.parse(jsonSongs).songs;
 
   const randomLinks = getRandom(videoDataArray, parseInt(number));

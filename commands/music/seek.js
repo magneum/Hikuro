@@ -1,7 +1,3 @@
-const Discord = require("discord.js");
-
-const forHumans = require("../../assets/utils/forhumans.js");
-
 module.exports = async (client, interaction, args) => {
   const player = client.player.players.get(interaction.guild.id);
 
