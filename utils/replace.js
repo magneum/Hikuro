@@ -122,6 +122,7 @@ const colors = {
   red: "\x1b[31m",
   green: "\x1b[32m",
   blue: "\x1b[34m",
+  resetColor: "\x1b[39m",
 };
 
 console.log(
@@ -133,7 +134,7 @@ function startRenaming() {
     `Enter the old word ${additionalEmojis.party} (or 'exit' to quit): `,
     (oldWord) => {
       if (oldWord.toLowerCase() === "exit") {
-        console.log(`${colors.red}Exiting...`);
+        console.log(`${colors.red}Exiting...${colors.resetColor}`);
         rl.close();
         return;
       }
@@ -142,7 +143,7 @@ function startRenaming() {
         `Enter the new word ${additionalEmojis.fire} : `,
         (newWord) => {
           renameFilesAndFolders(".", oldWord, newWord);
-          console.log(`${colors.green}Renaming completed!`);
+          console.log(`${colors.green}Renaming completed!${colors.resetColor}`);
           startRenaming();
         }
       );
