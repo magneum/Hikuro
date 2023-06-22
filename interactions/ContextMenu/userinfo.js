@@ -1,19 +1,8 @@
-const { CommandInteraction, Client } = require("discord.js");
 const { ContextMenuCommandBuilder } = require("discord.js");
-const Discord = require("discord.js");
-const axios = require("axios");
-
 const model = require("../../database/models/badge");
 
 module.exports = {
   data: new ContextMenuCommandBuilder().setName("Userinfo").setType(2),
-
-  /**
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
-   * @param {String[]} args
-   */
-
   run: async (client, interaction, args) => {
     await interaction.deferReply({ ephemeral: false });
     const member = await interaction.guild.members.fetch(
@@ -27,6 +16,7 @@ module.exports = {
         },
         interaction
       );
+
     const badgeFlags = {
       DEVELOPER: client.emotes.badges.developer,
       BUGS: client.emotes.badges.bug,
@@ -110,7 +100,38 @@ module.exports = {
             name: "Badges",
             value: `${
               Badges.FLAGS
-                ? Badges.FLAGS.map((flag) => badgeFlags[flag]).join(" ")
+                ? Badges.FLAGS.map((flag) => {
+                    switch (flag) {
+                      case "DEVELOPER":
+                        return badgeFlags.DEVELOPER;
+                      case "BUGS":
+                        return badgeFlags.BUGS;
+                      case "MANAGEMENT":
+                        return badgeFlags.MANAGEMENT;
+                      case "PREMIUM":
+                        return badgeFlags.PREMIUM;
+                      case "SUPPORTER":
+                        return badgeFlags.SUPPORTER;
+                      case "TEAM":
+                        return badgeFlags.TEAM;
+                      case "BOOSTER":
+                        return badgeFlags.BOOSTER;
+                      case "PARTNER":
+                        return badgeFlags.PARTNER;
+                      case "VOTER":
+                        return badgeFlags.VOTER;
+                      case "SUPPORT":
+                        return badgeFlags.SUPPORT;
+                      case "MODERATOR":
+                        return badgeFlags.MODERATOR;
+                      case "DESIGNER":
+                        return badgeFlags.DESIGNER;
+                      case "MARKETING":
+                        return badgeFlags.MARKETING;
+                      default:
+                        return "";
+                    }
+                  }).join(" ")
                 : "None"
             }`,
             inline: true,

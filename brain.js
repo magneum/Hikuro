@@ -6,42 +6,6 @@ const { Manager } = require("erela.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
-const client = new Discord.Client({
-  allowedMentions: {
-    parse: ["users", "roles"],
-    repliedUser: true,
-  },
-  autoReconnect: true,
-  disabledEvents: ["TYPING_START"],
-  partials: [
-    Discord.Partials.Channel,
-    Discord.Partials.GuildMember,
-    Discord.Partials.Message,
-    Discord.Partials.Reaction,
-    Discord.Partials.User,
-    Discord.Partials.GuildScheduledEvent,
-  ],
-  intents: [
-    Discord.GatewayIntentBits.Guilds,
-    Discord.GatewayIntentBits.GuildMembers,
-    Discord.GatewayIntentBits.GuildBans,
-    Discord.GatewayIntentBits.GuildEmojisAndStickers,
-    Discord.GatewayIntentBits.GuildIntegrations,
-    Discord.GatewayIntentBits.GuildWebhooks,
-    Discord.GatewayIntentBits.GuildInvites,
-    Discord.GatewayIntentBits.GuildVoiceStates,
-    Discord.GatewayIntentBits.GuildMessages,
-    Discord.GatewayIntentBits.GuildMessageReactions,
-    Discord.GatewayIntentBits.GuildMessageTyping,
-    Discord.GatewayIntentBits.DirectMessages,
-    Discord.GatewayIntentBits.DirectMessageReactions,
-    Discord.GatewayIntentBits.DirectMessageTyping,
-    Discord.GatewayIntentBits.GuildScheduledEvents,
-    Discord.GatewayIntentBits.MessageContent,
-  ],
-  restTimeOffset: 0,
-});
-
 const setupLavalinkClient = () => {
   const nodes = [
     {
@@ -154,15 +118,19 @@ const setupErrorHandlers = () => {
       ])
       .setColor(client.config.colors.normal);
 
-    consoleLogs
-      .send({
-        username: "Bot Logs",
-        embeds: [embed],
-      })
-      .catch(() => {
-        console.log("Error sending unhandledRejection to webhook");
-        console.log(error);
-      });
+    switch (webhookName) {
+      case "consoleLogs":
+        consoleLogs
+          .send({
+            username: "Bot Logs",
+            embeds: [embed],
+          })
+          .catch(() => {
+            console.log("Error sending unhandledRejection to webhook");
+            console.log(error);
+          });
+        break;
+    }
   });
 
   process.on("warning", (warn) => {
@@ -177,15 +145,19 @@ const setupErrorHandlers = () => {
       ])
       .setColor(client.config.colors.normal);
 
-    warnLogs
-      .send({
-        username: "Bot Logs",
-        embeds: [embed],
-      })
-      .catch(() => {
-        console.log("Error sending warning to webhook");
-        console.log(warn);
-      });
+    switch (webhookName) {
+      case "warnLogs":
+        warnLogs
+          .send({
+            username: "Bot Logs",
+            embeds: [embed],
+          })
+          .catch(() => {
+            console.log("Error sending warning to webhook");
+            console.log(warn);
+          });
+        break;
+    }
   });
 
   client.on(Discord.ShardEvents.Error, (error) => {
@@ -212,10 +184,14 @@ const setupErrorHandlers = () => {
       ])
       .setColor(client.config.colors.normal);
 
-    consoleLogs.send({
-      username: "Bot Logs",
-      embeds: [embed],
-    });
+    switch (webhookName) {
+      case "consoleLogs":
+        consoleLogs.send({
+          username: "Bot Logs",
+          embeds: [embed],
+        });
+        break;
+    }
   });
 };
 

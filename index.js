@@ -12,14 +12,14 @@ axios
     if (res.data.tag_name !== version) {
       console.log(
         chalk.red.bgYellow(
-          `Your bot is not up to date! Please update to the latest version!`,
+          "Your bot is not up to date! Please update to the latest version!",
           version + " -> " + res.data.tag_name
         )
       );
     }
   })
   .catch(() => {
-    console.log(chalk.red.bgYellow(`Failed to check if bot is up to date!`));
+    console.log(chalk.red.bgYellow("Failed to check if bot is up to date!"));
   });
 
 const webHooksArray = [
@@ -40,26 +40,28 @@ const webHooksArray = [
 ];
 
 if (process.env.WEBHOOK_ID && process.env.WEBHOOK_TOKEN) {
-  switch (webHooksArray) {
-    case "startLogs":
-    case "shardLogs":
-    case "errorLogs":
-    case "dmLogs":
-    case "voiceLogs":
-    case "serverLogs":
-    case "serverLogs2":
-    case "commandLogs":
-    case "consoleLogs":
-    case "warnLogs":
-    case "voiceErrorLogs":
-    case "creditLogs":
-    case "evalLogs":
-    case "interactionLogs":
-      webhook[webHooksArray].id = process.env.WEBHOOK_ID;
-      webhook[webHooksArray].token = process.env.WEBHOOK_TOKEN;
-      break;
-    default:
-      break;
+  for (const webHook of webHooksArray) {
+    switch (webHook) {
+      case "startLogs":
+      case "shardLogs":
+      case "errorLogs":
+      case "dmLogs":
+      case "voiceLogs":
+      case "serverLogs":
+      case "serverLogs2":
+      case "commandLogs":
+      case "consoleLogs":
+      case "warnLogs":
+      case "voiceErrorLogs":
+      case "creditLogs":
+      case "evalLogs":
+      case "interactionLogs":
+        webhook[webHook].id = process.env.WEBHOOK_ID;
+        webhook[webHook].token = process.env.WEBHOOK_TOKEN;
+        break;
+      default:
+        break;
+    }
   }
 }
 
@@ -78,34 +80,36 @@ const manager = new Discord.ShardingManager("./brain.js", {
   token: process.env.DISCORD_TOKEN,
   respawn: true,
 });
+
 if (process.env.TOPGG_TOKEN) {
   const { AutoPoster } = require("topgg-autoposter");
   AutoPoster(process.env.TOPGG_TOKEN, manager);
 }
+
 console.clear();
 console.log(
-  chalk.blue(chalk.bold(`System`)),
-  chalk.white(`>>`),
-  chalk.green(`Starting up`),
-  chalk.white(`...`)
+  chalk.blue(chalk.bold("System")),
+  chalk.white(">>"),
+  chalk.green("Starting up"),
+  chalk.white("...")
 );
-console.log(`\u001b[0m`);
-console.log(chalk.red(`© CorwinDev | 2021 - ${new Date().getFullYear()}`));
-console.log(chalk.red(`All rights reserved`));
-console.log(`\u001b[0m`);
-console.log(`\u001b[0m`);
+console.log("\u001b[0m");
+console.log(chalk.red("© CorwinDev | 2021 - " + new Date().getFullYear()));
+console.log(chalk.red("All rights reserved"));
+console.log("\u001b[0m");
+console.log("\u001b[0m");
 console.log(
-  chalk.blue(chalk.bold(`System`)),
-  chalk.white(`>>`),
-  chalk.red(`Version ${require(`${process.cwd()}/package.json`).version}`),
-  chalk.green(`loaded`)
+  chalk.blue(chalk.bold("System")),
+  chalk.white(">>"),
+  chalk.red("Version " + require(`${process.cwd()}/package.json`).version),
+  chalk.green("loaded")
 );
-console.log(`\u001b[0m`);
+console.log("\u001b[0m");
 
 manager.on("shardCreate", (shard) => {
   const embed = new Discord.EmbedBuilder()
-    .setTitle(`🆙・Launching shard`)
-    .setDescription(`A shard has just been launched`)
+    .setTitle("🆙・Launching shard")
+    .setDescription("A shard has just been launched")
     .setFields([
       {
         name: "🆔┆ID",
@@ -113,8 +117,8 @@ manager.on("shardCreate", (shard) => {
         inline: true,
       },
       {
-        name: `📃┆State`,
-        value: `Starting up...`,
+        name: "📃┆State",
+        value: "Starting up...",
         inline: true,
       },
     ])
@@ -125,18 +129,22 @@ manager.on("shardCreate", (shard) => {
   });
 
   console.log(
-    chalk.blue(chalk.bold(`System`)),
-    chalk.white(`>>`),
-    chalk.green(`Starting`),
-    chalk.red(`Shard #${shard.id + 1}`),
-    chalk.white(`...`)
+    chalk.blue(chalk.bold("System")),
+    chalk.white(">>"),
+    chalk.green("Starting"),
+    chalk.red("Shard #" + (shard.id + 1)),
+    chalk.white("...")
   );
-  console.log(`\u001b[0m`);
+  console.log("\u001b[0m");
 
   shard.on("death", (process) => {
     const embed = new Discord.EmbedBuilder()
       .setTitle(
-        `🚨・Closing shard ${shard.id + 1}/${manager.totalShards} unexpectedly`
+        "🚨・Closing shard " +
+          (shard.id + 1) +
+          "/" +
+          manager.totalShards +
+          " unexpectedly"
       )
       .setFields([
         {
@@ -153,18 +161,20 @@ manager.on("shardCreate", (shard) => {
     if (process.exitCode === null) {
       const embed = new Discord.EmbedBuilder()
         .setTitle(
-          `🚨・Shard ${shard.id + 1}/${
-            manager.totalShards
-          } exited with NULL error code!`
+          "🚨・Shard " +
+            (shard.id + 1) +
+            "/" +
+            manager.totalShards +
+            " exited with NULL error code!"
         )
         .setFields([
           {
             name: "PID",
-            value: `\`${process.pid}\``,
+            value: "`" + process.pid + "`",
           },
           {
             name: "Exit code",
-            value: `\`${process.exitCode}\``,
+            value: "`" + process.exitCode + "`",
           },
         ])
         .setColor(config.colors.normal);
@@ -177,7 +187,13 @@ manager.on("shardCreate", (shard) => {
 
   shard.on("shardDisconnect", (event) => {
     const embed = new Discord.EmbedBuilder()
-      .setTitle(`🚨・Shard ${shard.id + 1}/${manager.totalShards} disconnected`)
+      .setTitle(
+        "🚨・Shard " +
+          (shard.id + 1) +
+          "/" +
+          manager.totalShards +
+          " disconnected"
+      )
       .setDescription("Dumping socket close event...")
       .setColor(config.colors.normal);
     shardLogs.send({
@@ -188,7 +204,9 @@ manager.on("shardCreate", (shard) => {
 
   shard.on("shardReconnecting", () => {
     const embed = new Discord.EmbedBuilder()
-      .setTitle(`🚨・Reconnecting shard ${shard.id + 1}/${manager.totalShards}`)
+      .setTitle(
+        "🚨・Reconnecting shard " + (shard.id + 1) + "/" + manager.totalShards
+      )
       .setColor(config.colors.normal);
     shardLogs.send({
       username: "Bot Logs",
@@ -217,7 +235,7 @@ process.on("unhandledRejection", (error) => {
     error.stack = error.stack.slice(0, 950) + "... view console for details";
   if (!error.stack) return;
   const embed = new Discord.EmbedBuilder()
-    .setTitle(`🚨・Unhandled promise rejection`)
+    .setTitle("🚨・Unhandled promise rejection")
     .addFields([
       {
         name: "Error",
@@ -242,11 +260,11 @@ process.on("unhandledRejection", (error) => {
 process.on("warning", (warn) => {
   console.warn("Warning:", warn);
   const embed = new Discord.EmbedBuilder()
-    .setTitle(`🚨・New warning found`)
+    .setTitle("🚨・New warning found")
     .addFields([
       {
-        name: `Warn`,
-        value: `\`\`\`${warn}\`\`\``,
+        name: "Warn",
+        value: "```" + warn + "```",
       },
     ]);
   warnLogs

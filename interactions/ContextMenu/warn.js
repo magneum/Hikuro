@@ -1,18 +1,10 @@
-const { CommandInteraction, Client } = require("discord.js");
 const { ContextMenuCommandBuilder } = require("discord.js");
 const Discord = require("discord.js");
-
 const Schema = require("../../database/models/warnings");
 const Case = require("../../database/models/warnCase");
 
 module.exports = {
   data: new ContextMenuCommandBuilder().setName("Warn").setType(2),
-
-  /**
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
-   * @param {String[]} args
-   */
   run: async (client, interaction, args) => {
     const perms = await client.checkPerms(
       {
@@ -21,16 +13,18 @@ module.exports = {
       },
       interaction
     );
-    if (perms === false) {
-      client.errNormal(
-        {
-          error: `You don't have the required permissions to use this command!`,
-          type: "ephemeral",
-        },
-        interaction
-      );
-      return;
+    switch (perms) {
+      case false:
+        client.errNormal(
+          {
+            error: `You don't have the required permissions to use this command!`,
+            type: "ephemeral",
+          },
+          interaction
+        );
+        return;
     }
+
     // Create modal to give a reason
     const modal = new Discord.ModalBuilder()
       .setTitle("Warn")
@@ -62,16 +56,19 @@ module.exports = {
     const member = interaction.guild.members.cache.get(interaction.targetId);
     var caseNumber;
     await Case.findOne({ Guild: interaction.guild.id }).then(async (data) => {
-      if (!data) {
-        new Case({
-          Guild: interaction.guild.id,
-          Case: 1,
-        }).save();
-        caseNumber = 1;
-      } else {
-        data.Case += 1;
-        data.save();
-        caseNumber = data.Case;
+      switch (!!data) {
+        case false:
+          new Case({
+            Guild: interaction.guild.id,
+            Case: 1,
+          }).save();
+          caseNumber = 1;
+          break;
+        default:
+          data.Case += 1;
+          data.save();
+          caseNumber = data.Case;
+          break;
       }
     });
 

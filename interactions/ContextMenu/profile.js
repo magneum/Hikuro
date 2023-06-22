@@ -1,20 +1,10 @@
-const { CommandInteraction, Client } = require("discord.js");
-const { ContextMenuCommandBuilder } = require("discord.js");
-const Discord = require("discord.js");
-
 const model = require("../../database/models/badge");
 const Schema = require("../../database/models/profile");
+const { ContextMenuCommandBuilder } = require("discord.js");
 const CreditsSchema = require("../../database/models/votecredits");
 
 module.exports = {
   data: new ContextMenuCommandBuilder().setName("Bot profile").setType(2),
-
-  /**
-   * @param {Client} client
-   * @param {CommandInteraction} interaction
-   * @param {String[]} args
-   */
-
   run: async (client, interaction, args) => {
     const badgeFlags = {
       DEVELOPER: client.emotes.badges.developer,
@@ -25,7 +15,6 @@ module.exports = {
       PREMIUM: client.emotes.badges.premium,
       SUPPORTER: client.emotes.badges.supporter,
       TEAM: client.emotes.badges.team,
-      BOOSTER: client.emotes.badges.booster,
       PARTNER: client.emotes.badges.partner,
       VOTER: client.emotes.badges.voter,
       SUPPORT: client.emotes.badges.support,
@@ -47,8 +36,8 @@ module.exports = {
       HypeSquadEvents: "🏠・HypeSquad Events",
       PremiumEarlySupporter: "👑・Early Supporter",
       Partner: "👑・Partner",
-      Quarantined: "🔒・Quarantined", // Not sure if this is still a thing
-      Spammer: "🔒・Spammer", // Not sure if this one works
+      Quarantined: "🔒・Quarantined",
+      Spammer: "🔒・Spammer",
       Staff: "👨‍💼・Discord Staff",
       TeamPseudoUser: "👨‍💼・Discord Team",
       VerifiedBot: "🤖・Verified Bot",
@@ -75,125 +64,102 @@ module.exports = {
 
         const userFlags = user.flags ? user.flags.toArray() : [];
 
-        client.embed(
+        const fields = [
+          { name: "👤┆User", value: user.username, inline: true },
+          { name: "📘┆Discriminator", value: user.discriminator, inline: true },
+          { name: "🆔┆ID", value: user.id, inline: true },
           {
-            title: `${client.user.username}・Profile`,
-            desc: "_____",
-            thumbnail: user.avatarURL({ dynamic: true }),
-            fields: [
-              {
-                name: "👤┆User",
-                value: user.username,
-                inline: true,
-              },
-              {
-                name: "📘┆Discriminator",
-                value: user.discriminator,
-                inline: true,
-              },
-              {
-                name: "🆔┆ID",
-                value: user.id,
-                inline: true,
-              },
-              {
-                name: "👨‍👩‍👦┆Gender",
-                value: `${data.Gender || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🔢┆Age",
-                value: `${data.Age || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🎂┆Birthday",
-                value: `${data.Birthday || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🎨┆Favorite color",
-                value: `${data.Color || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🐶┆Favorite pets",
-                value: `${data.Pets.join(", ") || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🍕┆Favorite food",
-                value: `${data.Food.join(", ") || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🎶┆Favorite songs",
-                value: `${data.Songs.join(", ") || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🎤┆Favorite artists",
-                value: `${data.Artists.join(", ") || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🎬┆Favorite movies",
-                value: `${data.Movies.join(", ") || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "👨‍🎤┆Favorite actors",
-                value: `${data.Actors.join(", ") || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🏴┆Origin",
-                value: `${data.Orgin || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "🎮┆Hobby's",
-                value: `${data.Hobbys.join(", ") || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "😛┆Status",
-                value: `${data.Status || "Not set"}`,
-                inline: true,
-              },
-              {
-                name: "📛┆Bot Badges",
-                value: `${
-                  Badges.FLAGS
-                    ? Badges.FLAGS.map((flag) => badgeFlags[flag]).join(" ")
-                    : "None"
-                }`,
-                inline: true,
-              },
-              {
-                name: "🏷️┆Discord Badges",
-                value: `${
-                  userFlags.length
-                    ? userFlags.map((flag) => flags[flag]).join(", ")
-                    : "None" || "None"
-                }`,
-                inline: true,
-              },
-              {
-                name: "💳┆Dcredits",
-                value: `${credits || "None"}`,
-                inline: true,
-              },
-              {
-                name: "ℹ️┆About me",
-                value: `${data.Aboutme || "Not set"}`,
-                inline: false,
-              },
-            ],
-            type: "editreply",
+            name: "👨‍👩‍👦┆Gender",
+            value: `${data.Gender || "Not set"}`,
+            inline: true,
           },
-          interaction
-        );
+          { name: "🔢┆Age", value: `${data.Age || "Not set"}`, inline: true },
+          {
+            name: "🎂┆Birthday",
+            value: `${data.Birthday || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "🎨┆Favorite color",
+            value: `${data.Color || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "🐶┆Favorite pets",
+            value: `${data.Pets.join(", ") || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "🍕┆Favorite food",
+            value: `${data.Food.join(", ") || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "🎶┆Favorite songs",
+            value: `${data.Songs.join(", ") || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "🎤┆Favorite artists",
+            value: `${data.Artists.join(", ") || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "🎬┆Favorite movies",
+            value: `${data.Movies.join(", ") || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "👨‍🎤┆Favorite actors",
+            value: `${data.Actors.join(", ") || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "🏴┆Origin",
+            value: `${data.Orgin || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "🎮┆Hobby's",
+            value: `${data.Hobbys.join(", ") || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "😛┆Status",
+            value: `${data.Status || "Not set"}`,
+            inline: true,
+          },
+          {
+            name: "📛┆Bot Badges",
+            value: Badges.FLAGS
+              ? Badges.FLAGS.map((flag) => badgeFlags[flag]).join(" ")
+              : "None",
+            inline: true,
+          },
+          {
+            name: "🏷️┆Discord Badges",
+            value: userFlags.length
+              ? userFlags.map((flag) => flags[flag]).join(", ")
+              : "None",
+            inline: true,
+          },
+          { name: "💳┆Dcredits", value: `${credits || "None"}`, inline: true },
+          {
+            name: "ℹ️┆About me",
+            value: `${data.Aboutme || "Not set"}`,
+            inline: false,
+          },
+        ];
+
+        const embedData = {
+          title: `${client.user.username}・Profile`,
+          desc: "_____",
+          thumbnail: user.avatarURL({ dynamic: true }),
+          fields,
+          type: "editreply",
+        };
+
+        client.embed(embedData, interaction);
       } else {
         return client.errNormal(
           {
