@@ -7,7 +7,7 @@ const chalk = require("chalk");
 const axios = require("axios");
 
 axios
-  .get("https://api.github.com/repos/CorwinDev/Discord-Bot/releases/latest")
+  .get("https://api.github.com/repos/MagneumDev/Discord-Bot/releases/latest")
   .then((res) => {
     if (res.data.tag_name !== version) {
       console.log(
@@ -94,7 +94,7 @@ console.log(
   chalk.white("...")
 );
 console.log("\u001b[0m");
-console.log(chalk.red("© CorwinDev | 2021 - " + new Date().getFullYear()));
+console.log(chalk.red("© MagneumDev | 2021 - " + new Date().getFullYear()));
 console.log(chalk.red("All rights reserved"));
 console.log("\u001b[0m");
 console.log("\u001b[0m");

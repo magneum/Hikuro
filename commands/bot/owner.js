@@ -7,12 +7,12 @@ module.exports = async (client, interaction, args) => {
       fields: [
         {
           name: "👑┆Owner name",
-          value: `Corwin`,
+          value: `Magneum`,
           inline: true,
         },
         {
           name: "🏷┆Discord tag",
-          value: `</Corwin>#0001`,
+          value: `</Magneum>#0001`,
           inline: true,
         },
         {
