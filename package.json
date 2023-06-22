@@ -2,10 +2,10 @@
   "name": "discordbot",
   "version": "10.0.0",
   "description": "Discord Bot is a bot with which you can run your entire server! With no less than 400+ commands",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "forever src/index.js --color"
+    "dev": "nodemon index.js",
+    "start": "forever index.js --colors"
   },
   "keywords": [
     "Music",
