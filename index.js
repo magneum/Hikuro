@@ -1,8 +1,8 @@
-require("dotenv").config("./.env");
+const webhook = require("./database/json/webhooks.json");
 const { version } = require("./package.json");
-const webhook = require("./json/webhooks.json");
 const config = require("./config/bot.js");
 const Discord = require("discord.js");
+require("dotenv").config("./.env");
 const chalk = require("chalk");
 const axios = require("axios");
 
