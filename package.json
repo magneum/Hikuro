@@ -6,22 +6,6 @@
     "start": "forever index.js --colors",
     "revert": "git init --initial-branch=main && git fetch origin main && git reset --hard origin/main"
   },
-  "keywords": [
-    "Music",
-    "Moderation",
-    "Tickets",
-    "Radio",
-    "Games",
-    "Giveaways",
-    "Customisation",
-    "Economy",
-    "Leveling",
-    "Invites",
-    "Messages",
-    "Utilities",
-    "Suggestions",
-    "Server Stats"
-  ],
   "dependencies": {
     "@discordjs/voice": "^0.16.0",
     "@haileybot/captcha-generator": "^1.7.0",
