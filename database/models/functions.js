@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-module.exports = mongoose.model("functions", new mongoose.Schema({
+module.exports = mongoose.model(
+  "functions",
+  new mongoose.Schema({
     Guild: String,
     Levels: { type: Boolean, default: false },
     Beta: { type: Boolean, default: false },
@@ -11,5 +12,6 @@ module.exports = mongoose.model("functions", new mongoose.Schema({
     AntiInvite: { type: Boolean, default: false },
     AntiLinks: { type: Boolean, default: false },
     Prefix: String,
-    Color: String 
-}));
+    Color: String,
+  })
+);

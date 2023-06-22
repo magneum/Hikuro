@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-module.exports = mongoose.model("messages", new mongoose.Schema({
+module.exports = mongoose.model(
+  "messages",
+  new mongoose.Schema({
     Guild: String,
     User: String,
     Messages: Number,
-}));
+  })
+);

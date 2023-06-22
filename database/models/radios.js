@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-module.exports = mongoose.model("radios", new mongoose.Schema({
+module.exports = mongoose.model(
+  "radios",
+  new mongoose.Schema({
     Guild: String,
     Name: String,
-    Url: String
-}));
+    Url: String,
+  })
+);

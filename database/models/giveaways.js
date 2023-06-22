@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-module.exports = mongoose.model("giveaways", new mongoose.Schema({
+module.exports = mongoose.model(
+  "giveaways",
+  new mongoose.Schema({
     messageId: String,
     channelId: String,
     guildId: String,
@@ -11,17 +12,17 @@ module.exports = mongoose.model("giveaways", new mongoose.Schema({
     winnerCount: Number,
     prize: String,
     messages: {
-        giveaway: String,
-        giveawayEnded: String,
-        inviteToParticipate: String,
-        drawing: String,
-        dropMessage: String,
-        winMessage: mongoose.Mixed,
-        embedFooter: mongoose.Mixed,
-        noWinner: String,
-        winners: String,
-        endedAt: String,
-        hostedBy: String
+      giveaway: String,
+      giveawayEnded: String,
+      inviteToParticipate: String,
+      drawing: String,
+      dropMessage: String,
+      winMessage: mongoose.Mixed,
+      embedFooter: mongoose.Mixed,
+      noWinner: String,
+      winners: String,
+      endedAt: String,
+      hostedBy: String,
     },
     thumbnail: String,
     hostedBy: String,
@@ -35,22 +36,23 @@ module.exports = mongoose.model("giveaways", new mongoose.Schema({
     bonusEntries: String,
     extraData: mongoose.Mixed,
     lastChance: {
-        enabled: Boolean,
-        content: String,
-        threshold: Number,
-        embedColor: mongoose.Mixed
+      enabled: Boolean,
+      content: String,
+      threshold: Number,
+      embedColor: mongoose.Mixed,
     },
     pauseOptions: {
-        isPaused: Boolean,
-        content: String,
-        unPauseAfter: Number,
-        embedColor: mongoose.Mixed,
-        durationAfterPause: Number
+      isPaused: Boolean,
+      content: String,
+      unPauseAfter: Number,
+      embedColor: mongoose.Mixed,
+      durationAfterPause: Number,
     },
     isDrop: Boolean,
     allowedMentions: {
-        parse: { type: [String], default: undefined },
-        users: { type: [String], default: undefined },
-        roles: { type: [String], default: undefined }
-    }
-}));
+      parse: { type: [String], default: undefined },
+      users: { type: [String], default: undefined },
+      roles: { type: [String], default: undefined },
+    },
+  })
+);

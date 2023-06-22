@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-module.exports = mongoose.model("inviteMessages", new mongoose.Schema({
+module.exports = mongoose.model(
+  "inviteMessages",
+  new mongoose.Schema({
     Guild: String,
     inviteJoin: String,
-    inviteLeave: String
-}));
+    inviteLeave: String,
+  })
+);
