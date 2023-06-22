@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
+    "replace": "node utils/replace.js",
     "start": "forever index.js --colors",
     "revert": "git init --initial-branch=main && git fetch origin main && git reset --hard origin/main"
   },
