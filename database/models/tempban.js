@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
+const mango = require("mongoose");
+const path = require("path");
 
-module.exports = mongoose.model(
-  "tempban",
-  new mongoose.Schema({
+module.exports = mango.model(
+  path.basename(__filename, path.extname(__filename)),
+  new mango.Schema({
     guildId: String,
     userId: String,
     expires: Date,

@@ -10,13 +10,13 @@ if (!process.argv[2]) {
   process.exit(1);
 }
 require("dotenv").config("./.env");
-const mongoose = require("mongoose");
+const mango = require("mongoose");
 const model = require("./database/models/badge.js");
-mongoose.set("strictQuery", false);
+mango.set("strictQuery", false);
 
 const connectToDatabase = async () => {
   try {
-    mongoose.connect(process.env.MONGO_TOKEN, {
+    mango.connect(process.env.MONGO_TOKEN, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -62,7 +62,7 @@ const addDeveloperBadge = async () => {
   } catch (err) {
     console.log(err);
   } finally {
-    mongoose.connection.close();
+    mango.connection.close();
     process.exit(0);
   }
 };

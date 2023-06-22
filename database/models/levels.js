@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
+const mango = require("mongoose");
+const path = require("path");
 
-module.exports = mongoose.model(
-  "Levels",
-  new mongoose.Schema({
+module.exports = mango.model(
+  path.basename(__filename, path.extname(__filename)),
+  new mango.Schema({
     userID: { type: String },
     guildID: { type: String },
     xp: { type: Number, default: 0 },

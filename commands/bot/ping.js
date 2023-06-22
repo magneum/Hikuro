@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mango = require("mongoose");
 
 module.exports = async (client, interaction, args) => {
   client
@@ -14,7 +14,7 @@ module.exports = async (client, interaction, args) => {
         resultMessage.createdTimestamp - interaction.createdTimestamp
       );
 
-      mongoose.connection.db.admin().ping(function (err, result) {
+      mango.connection.db.admin().ping(function (err, result) {
         var mongooseSeconds = (result.ok % 60000) / 1000;
         var pingSeconds = (ping % 60000) / 1000;
         var apiSeconds = (client.ws.ping % 60000) / 1000;

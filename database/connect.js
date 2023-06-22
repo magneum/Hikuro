@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const mango = require("mongoose");
 const chalk = require("chalk");
 
 async function connect() {
-  mongoose.set("strictQuery", false);
+  mango.set("strictQuery", false);
   try {
     console.log(
       chalk.blue(chalk.bold("🌐 Database")),
@@ -10,7 +10,7 @@ async function connect() {
       chalk.red("MongoDB"),
       chalk.green("is connecting...")
     );
-    await mongoose.connect(process.env.MONGO_TOKEN, {
+    await mango.connect(process.env.MONGO_TOKEN, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -28,7 +28,7 @@ async function connect() {
     process.exit(1);
   }
 
-  mongoose.connection.once("open", () => {
+  mango.connection.once("open", () => {
     console.log(
       chalk.blue(chalk.bold("🌐 Database")),
       chalk.white(">>"),
@@ -37,7 +37,7 @@ async function connect() {
     );
   });
 
-  mongoose.connection.on("error", (err) => {
+  mango.connection.on("error", (err) => {
     console.log(
       chalk.red("❌ [ERROR]"),
       chalk.white(">>"),

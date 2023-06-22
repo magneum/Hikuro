@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
+const mango = require("mongoose");
+const path = require("path");
 
-module.exports = mongoose.model(
-  "inviteBy",
-  new mongoose.Schema({
+module.exports = mango.model(
+  path.basename(__filename, path.extname(__filename)),
+  new mango.Schema({
     Guild: String,
     inviteUser: String,
     User: String,
