@@ -16,7 +16,7 @@ mongoose.set("strictQuery", false);
 
 const connectToDatabase = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_TOKEN, {
+    mongoose.connect(process.env.MONGO_TOKEN, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

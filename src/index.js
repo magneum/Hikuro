@@ -1,8 +1,10 @@
+require("dotenv").config("./.env");
+const { version } = require(".././package.json");
+const webhook = require("./config/webhooks.json");
+const config = require("./config/bot.js");
 const Discord = require("discord.js");
 const chalk = require("chalk");
-require("dotenv").config("./.env");
 const axios = require("axios");
-const { version } = require(".././package.json");
 
 axios
   .get("https://api.github.com/repos/CorwinDev/Discord-Bot/releases/latest")
@@ -20,8 +22,6 @@ axios
     console.log(chalk.red.bgYellow(`Failed to check if bot is up to date!`));
   });
 
-const webhook = require("./config/webhooks.json");
-const config = require("./config/bot.js");
 const webHooksArray = [
   "startLogs",
   "shardLogs",

@@ -1,13 +1,11 @@
+const Facebook = require("erela.js-facebook");
+const AppleMusic = require("erela.js-apple");
+const Spotify = require("erela.js-spotify");
+const Deezer = require("erela.js-deezer");
+const { Manager } = require("erela.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
-const { Manager } = require("erela.js");
-const Spotify = require("erela.js-spotify");
-const Facebook = require("erela.js-facebook");
-const Deezer = require("erela.js-deezer");
-const AppleMusic = require("erela.js-apple");
-
-// Discord client
 const client = new Discord.Client({
   allowedMentions: {
     parse: ["users", "roles"],
@@ -221,7 +219,6 @@ const setupErrorHandlers = () => {
   });
 };
 
-// Lavalink and Music
 client.player = new Manager({
   plugins: [new AppleMusic(), new Deezer(), new Facebook()],
   nodes: [],
@@ -233,17 +230,12 @@ client.player = new Manager({
 
 setupLavalinkClient();
 loadMusicEvents();
-
-// Connect to database
 connectToDatabase();
 
-// Client settings
 client.config = require("./config/bot");
 client.changelogs = require("./config/changelogs");
 client.emotes = require("./config/emojis.json");
 client.webhooks = require("./config/webhooks.json");
-
-// Check if .env webhook_id and webhook_token are set
 setupWebhooks();
 
 client.commands = new Discord.Collection();
@@ -251,7 +243,6 @@ client.playerManager = new Map();
 client.triviaManager = new Map();
 client.queue = new Map();
 
-// Webhooks
 const consoleLogs = new Discord.WebhookClient({
   id: client.webhooks.consoleLogs.id,
   token: client.webhooks.consoleLogs.token,
@@ -261,10 +252,6 @@ const warnLogs = new Discord.WebhookClient({
   id: client.webhooks.warnLogs.id,
   token: client.webhooks.warnLogs.token,
 });
-
-// Load handlers
 loadHandlers();
-
 client.login(process.env.DISCORD_TOKEN);
-
 setupErrorHandlers();
