@@ -14,10 +14,10 @@ const CommandsSchema = require("../../database/models/customCommandAdvanced");
 const fetch = require("node-fetch");
 
 /**
- * 
- * @param {Discord.Client} client 
- * @param {Discord.Message} message 
- * @returns 
+ *
+ * @param {Discord.Client} client
+ * @param {Discord.Message} message
+ * @returns
  */
 module.exports = async (client, message) => {
   const dmlog = new Discord.WebhookClient({
@@ -32,16 +32,26 @@ module.exports = async (client, message) => {
       .setTitle(`💬・New DM message!`)
       .setDescription(`Bot has received a new DM message!`)
       .addFields(
-        { name: "👤┆Send By", value: `${message.author} (${message.author.tag})`, inline: true },
-        { name: `💬┆Message`, value: `${message.content || "None"}`, inline: true },
+        {
+          name: "👤┆Send By",
+          value: `${message.author} (${message.author.tag})`,
+          inline: true,
+        },
+        {
+          name: `💬┆Message`,
+          value: `${message.content || "None"}`,
+          inline: true,
+        }
       )
       .setColor(client.config.colors.normal)
       .setTimestamp();
 
     if (message.attachments.size > 0)
-      embedLogs.addFields(
-        { name: `📃┆Attachments`, value: `${message.attachments.first()?.url}`, inline: false },
-      )
+      embedLogs.addFields({
+        name: `📃┆Attachments`,
+        value: `${message.attachments.first()?.url}`,
+        inline: false,
+      });
     return dmlog.send({
       username: "Bot DM",
       embeds: [embedLogs],
@@ -99,7 +109,7 @@ module.exports = async (client, message) => {
                 await client.channels.cache
                   .get(levelData.Channel)
                   .send({ content: levelMessage })
-                  .catch(() => { });
+                  .catch(() => {});
               } else {
                 await message.channel.send({ content: levelMessage });
               }
@@ -114,7 +124,7 @@ module.exports = async (client, message) => {
                   .send({
                     content: `**GG** <@!${message.author.id}>, you are now level **${user.level}**`,
                   })
-                  .catch(() => { });
+                  .catch(() => {});
               } else {
                 message.channel.send({
                   content: `**GG** <@!${message.author.id}>, you are now level **${user.level}**`,
@@ -134,7 +144,7 @@ module.exports = async (client, message) => {
                 message.guild.members.cache
                   .get(message.author.id)
                   .roles.add(data.Role)
-                  .catch((e) => { });
+                  .catch((e) => {});
               }
             }
           );
@@ -159,7 +169,7 @@ module.exports = async (client, message) => {
                 message.guild.members.cache
                   .get(message.author.id)
                   .roles.add(data.Role);
-              } catch { }
+              } catch {}
             }
           }
         );
@@ -198,7 +208,7 @@ module.exports = async (client, message) => {
 
         if (message.member.displayName.startsWith(`[AFK] `)) {
           let name = message.member.displayName.replace(`[AFK] `, ``);
-          message.member.setNickname(name).catch((e) => { });
+          message.member.setNickname(name).catch((e) => {});
         }
       }
     }
@@ -228,28 +238,26 @@ module.exports = async (client, message) => {
     if (!data) return;
     if (message.channel.id !== data.Channel) return;
     if (process.env.OPENAI) {
-      fetch(
-        `https://api.openai.com/v1/chat/completions`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + process.env.OPENAI,
-          },
-          body: JSON.stringify({
-            'model': 'gpt-3.5-turbo',
-            'messages': [{
-              'role': 'user',
-              'content': message.content
-            }]
-          })
-        }
-      )
-        .catch(() => {
-        })
+      fetch(`https://api.openai.com/v1/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + process.env.OPENAI,
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content: message.content,
+            },
+          ],
+        }),
+      })
+        .catch(() => {})
         .then((res) => {
           res.json().then((data) => {
-            if(data.error) return;
+            if (data.error) return;
             message.reply({ content: data.choices[0].message.content });
           });
         });
@@ -258,11 +266,17 @@ module.exports = async (client, message) => {
         const input = message;
         try {
           fetch(
-            `https://api.coreware.nl/fun/chat?msg=${encodeURIComponent(input)}&uid=${message.author.id}`,
+            `https://api.coreware.nl/fun/chat?msg=${encodeURIComponent(
+              input
+            )}&uid=${message.author.id}`
           )
-            .catch(() => { console.log })
+            .catch(() => {
+              console.log;
+            })
             .then((res) => res.json())
-            .catch(() => { console.log})
+            .catch(() => {
+              console.log;
+            })
             .then(async (json) => {
               console.log(json);
               if (json) {
@@ -275,14 +289,14 @@ module.exports = async (client, message) => {
                   try {
                     return message
                       .reply({ content: json.response })
-                      .catch(() => { });
-                  } catch { }
+                      .catch(() => {});
+                  } catch {}
                 }
               }
             })
-            .catch(() => { });
-        } catch { }
-      } catch { }
+            .catch(() => {});
+        } catch {}
+      } catch {}
     }
   });
 
@@ -295,7 +309,7 @@ module.exports = async (client, message) => {
 
         const lastStickyMessage = await message.channel.messages
           .fetch(data.LastMessage)
-          .catch(() => { });
+          .catch(() => {});
         if (!lastStickyMessage) return;
         await lastStickyMessage.delete({ timeout: 1000 });
 
@@ -308,7 +322,7 @@ module.exports = async (client, message) => {
         data.save();
       }
     );
-  } catch { }
+  } catch {}
 
   // Prefix
   var guildSettings = await Functions.findOne({ Guild: message.guild.id });
@@ -355,9 +369,7 @@ module.exports = async (client, message) => {
     let row = new Discord.ActionRowBuilder().addComponents(
       new Discord.ButtonBuilder()
         .setLabel("Invite")
-        .setURL(
-          client.config.discord.botInvite
-        )
+        .setURL(client.config.discord.botInvite)
         .setStyle(Discord.ButtonStyle.Link),
 
       new Discord.ButtonBuilder()
@@ -394,7 +406,7 @@ module.exports = async (client, message) => {
         },
         message.channel
       )
-      .catch(() => { });
+      .catch(() => {});
   }
 
   const cmd = await Commands.findOne({
@@ -431,5 +443,3 @@ module.exports = async (client, message) => {
     }
   }
 };
-
-

@@ -6,7 +6,8 @@ const count = require("../../database/models/count");
 module.exports = async (client) => {
   client
     .on("messageCreate", async (message) => {
-      if (message.author.bot || message.channel.type === Discord.ChannelType.DM) return;
+      if (message.author.bot || message.channel.type === Discord.ChannelType.DM)
+        return;
 
       if (
         isNaN(message.content) ||
@@ -63,7 +64,7 @@ module.exports = async (client) => {
               return message.react(client.emotes.normal.error);
             } catch (error) {
               message.react(client.emotes.normal.error);
-              console.log(error)
+              console.log(error);
             }
           }
         }
@@ -109,5 +110,3 @@ module.exports = async (client) => {
     })
     .setMaxListeners(0);
 };
-
- 
