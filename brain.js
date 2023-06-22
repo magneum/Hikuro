@@ -234,8 +234,8 @@ connectToDatabase();
 
 client.config = require("./config/bot");
 client.changelogs = require("./config/changelogs");
-client.emotes = require("./config/emojis.json");
-client.webhooks = require("./config/webhooks.json");
+client.emotes = require("./json/emojis.json");
+client.webhooks = require("./json/webhooks.json");
 setupWebhooks();
 
 client.commands = new Discord.Collection();

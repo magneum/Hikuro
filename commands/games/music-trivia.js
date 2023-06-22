@@ -47,7 +47,7 @@ module.exports = async (client, interaction, args) => {
       interaction
     );
 
-  const jsonSongs = fs.readFileSync("./config/data/musictrivia.json", "utf8");
+  const jsonSongs = fs.readFileSync("./json/data/musictrivia.json", "utf8");
   const videoDataArray = JSON.parse(jsonSongs).songs;
 
   const randomLinks = getRandom(videoDataArray, parseInt(number));

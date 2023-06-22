@@ -1,6 +1,6 @@
 require("dotenv").config("./.env");
 const { version } = require("./package.json");
-const webhook = require("./config/webhooks.json");
+const webhook = require("./json/webhooks.json");
 const config = require("./config/bot.js");
 const Discord = require("discord.js");
 const chalk = require("chalk");
@@ -73,7 +73,7 @@ const shardLogs = new Discord.WebhookClient({
   token: webhook.shardLogs.token,
 });
 
-const manager = new Discord.ShardingManager("./bot.js", {
+const manager = new Discord.ShardingManager("./brain.js", {
   totalShards: "auto",
   token: process.env.DISCORD_TOKEN,
   respawn: true,

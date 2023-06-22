@@ -5,10 +5,6 @@ const Functions = require("../../database/models/functions");
 const VoiceSchema = require("../../database/models/voiceChannels");
 
 module.exports = async (client) => {
-  //----------------------------------------------------------------//
-  //                         Permissions                            //
-  //----------------------------------------------------------------//
-  // All bitfields to name
   client.bitfieldToName = function (bitfield) {
     const permissions = new Discord.PermissionsBitField(bitfield);
     return permissions.toArray();
