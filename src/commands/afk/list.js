@@ -1,7 +1,7 @@
-const Schema = require("../../database/models/afk");
+const db = require("../../database/models/afk");
 
 module.exports = async (client, interaction, args) => {
-  const rawboard = await Schema.find({ Guild: interaction.guild.id });
+  const rawboard = await db.find({ Guild: interaction.guild.id });
 
   if (rawboard.length < 1)
     return client.errNormal(

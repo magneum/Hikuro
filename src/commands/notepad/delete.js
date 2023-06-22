@@ -1,13 +1,13 @@
-const Schema = require("../../database/models/notes");
+const db = require("../../database/models/notes");
 
 module.exports = async (client, interaction, args) => {
   let id = interaction.options.getString("id");
 
-  Schema.findOne(
+  db.findOne(
     { Guild: interaction.guild.id, Code: id },
     async (err, data) => {
       if (data) {
-        Schema.findOneAndDelete({ Guild: interaction.guild.id, Code: id }).then(
+        db.findOneAndDelete({ Guild: interaction.guild.id, Code: id }).then(
           () => {
             client.succNormal(
               { text: `Note **#${id}** has been deleted!`, type: "editreply" },

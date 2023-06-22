@@ -1,7 +1,7 @@
-const Schema = require("../../database/models/birthday");
+const db = require("../../database/models/birthday");
 
 module.exports = async (client, interaction, args) => {
-  Schema.findOne(
+  db.findOne(
     { Guild: interaction.guild.id, User: interaction.user.id },
     async (err, data) => {
       if (!data)
@@ -13,7 +13,7 @@ module.exports = async (client, interaction, args) => {
           interaction
         );
 
-      Schema.findOneAndDelete({
+      db.findOneAndDelete({
         Guild: interaction.guild.id,
         User: interaction.user.id,
       }).then(() => {

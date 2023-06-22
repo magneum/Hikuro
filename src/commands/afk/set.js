@@ -1,9 +1,9 @@
-const Schema = require("../../database/models/afk");
+const db = require("../../database/models/afk");
 
 module.exports = async (client, interaction, args) => {
   const reason = interaction.options.getString("reason") || `Not specified`;
 
-  Schema.findOne(
+  db.findOne(
     { Guild: interaction.guild.id, User: interaction.user.id },
     async (err, data) => {
       if (data) {
@@ -15,7 +15,7 @@ module.exports = async (client, interaction, args) => {
           interaction
         );
       } else {
-        new Schema({
+        new db({
           Guild: interaction.guild.id,
           User: interaction.user.id,
           Message: reason,

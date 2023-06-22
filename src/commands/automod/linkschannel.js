@@ -1,11 +1,11 @@
-const Schema = require("../../database/models/channelList");
+const db = require("../../database/models/channelList");
 
 module.exports = async (client, interaction, args) => {
   const type = interaction.options.getString("type");
   const channel = interaction.options.getChannel("channel");
 
   if (type == "add") {
-    Schema.findOne({ Guild: interaction.guild.id }, async (err, data) => {
+    db.findOne({ Guild: interaction.guild.id }, async (err, data) => {
       if (data) {
         if (data.Channels.includes(channel.id)) {
           return client.errNormal(
@@ -20,7 +20,7 @@ module.exports = async (client, interaction, args) => {
         data.Channels.push(channel.id);
         data.save();
       } else {
-        new Schema({
+        new db({
           Guild: interaction.guild.id,
           Channels: channel.id,
         }).save();
@@ -41,7 +41,7 @@ module.exports = async (client, interaction, args) => {
       interaction
     );
   } else if (type == "remove") {
-    Schema.findOne({ Guild: interaction.guild.id }, async (err, data) => {
+    db.findOne({ Guild: interaction.guild.id }, async (err, data) => {
       if (data) {
         if (!data.Channels.includes(channel.id)) {
           return client.errNormal(
@@ -57,7 +57,7 @@ module.exports = async (client, interaction, args) => {
           (target) => target !== channel.id
         );
 
-        await Schema.findOneAndUpdate(
+        await db.findOneAndUpdate(
           { Guild: interaction.guild.id },
           {
             Guild: interaction.guild.id,

@@ -1,5 +1,5 @@
 const generator = require("generate-password");
-const Schema = require("../../database/models/notes");
+const db = require("../../database/models/notes");
 
 module.exports = async (client, interaction, args) => {
   const code = generator.generate({
@@ -11,11 +11,11 @@ module.exports = async (client, interaction, args) => {
 
   let note = interaction.options.getString("note");
 
-  Schema.findOne(
+  db.findOne(
     { Guild: interaction.guild.id, Code: code },
     async (err, data) => {
       if (!data) {
-        new Schema({
+        new db({
           Guild: interaction.guild.id,
           User: interaction.user.id,
           Code: code,

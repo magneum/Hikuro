@@ -1,4 +1,4 @@
-const Schema = require("../../database/models/birthday");
+const db = require("../../database/models/birthday");
 
 module.exports = async (client, interaction, args) => {
   const months = {
@@ -41,14 +41,14 @@ module.exports = async (client, interaction, args) => {
   const convertedMonth = months[month];
   const birthdayString = `${convertedDay} of ${convertedMonth}`;
 
-  Schema.findOne(
+  db.findOne(
     { Guild: interaction.guild.id, User: interaction.user.id },
     async (err, data) => {
       if (data) {
         data.Birthday = birthdayString;
         data.save();
       } else {
-        new Schema({
+        new db({
           Guild: interaction.guild.id,
           User: interaction.user.id,
           Birthday: birthdayString,

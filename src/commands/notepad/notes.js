@@ -1,7 +1,7 @@
-const Schema = require("../../database/models/notes");
+const db = require("../../database/models/notes");
 
 module.exports = async (client, interaction, args) => {
-  const rawboard = await Schema.find({
+  const rawboard = await db.find({
     Guild: interaction.guild.id,
     User: interaction.user.id,
   });

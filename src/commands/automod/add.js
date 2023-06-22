@@ -1,9 +1,9 @@
-const Schema = require("../../database/models/blacklist");
+const db = require("../../database/models/blacklist");
 
 module.exports = async (client, interaction, args) => {
   const word = interaction.options.getString("word");
 
-  Schema.findOne({ Guild: interaction.guild.id }, async (err, data) => {
+  db.findOne({ Guild: interaction.guild.id }, async (err, data) => {
     if (data) {
       if (data.Words.includes(word)) {
         return client.errNormal(
@@ -18,7 +18,7 @@ module.exports = async (client, interaction, args) => {
       data.Words.push(word);
       data.save();
     } else {
-      new Schema({
+      new db({
         Guild: interaction.guild.id,
         Words: word,
       }).save();

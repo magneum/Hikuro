@@ -1,7 +1,7 @@
-const Schema = require("../../database/models/birthday");
+const db = require("../../database/models/birthday");
 
 module.exports = async (client, interaction, args) => {
-  const rawBirthdayboard = await Schema.find({ Guild: interaction.guild.id });
+  const rawBirthdayboard = await db.find({ Guild: interaction.guild.id });
 
   if (rawBirthdayboard.length < 1)
     return client.errNormal(

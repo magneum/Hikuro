@@ -1,7 +1,7 @@
-const Schema = require("../../database/models/blacklist");
+const db = require("../../database/models/blacklist");
 
 module.exports = async (client, interaction, args) => {
-  Schema.findOne({ Guild: interaction.guild.id }, async (err, data) => {
+  db.findOne({ Guild: interaction.guild.id }, async (err, data) => {
     if (data && data.Words.length > 0) {
       client.embed(
         {
