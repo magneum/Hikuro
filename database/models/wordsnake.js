@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Schema = new mongoose.Schema({
+module.exports = mongoose.model(
+  "wordsnake",
+  new mongoose.Schema({
     Guild: String,
     Channel: String,
     lastWord: String,
-});
-
-module.exports = mongoose.model("wordsnake", Schema);
+  })
+);

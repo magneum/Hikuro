@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Schema = new mongoose.Schema({
-    Guild: String,
-    User: String,
-    Money: Number,
-    Bank: Number
-});
 
-module.exports = mongoose.model("economy", Schema);
+module.exports = mongoose.model("economy", new mongoose.Schema({
+  Guild: String,
+  User: String,
+  Money: Number,
+  Bank: Number,
+}));

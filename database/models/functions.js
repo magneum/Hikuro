@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const Schema = new mongoose.Schema({
+
+module.exports = mongoose.model("functions", new mongoose.Schema({
     Guild: String,
     Levels: { type: Boolean, default: false },
     Beta: { type: Boolean, default: false },
@@ -11,6 +12,4 @@ const Schema = new mongoose.Schema({
     AntiLinks: { type: Boolean, default: false },
     Prefix: String,
     Color: String 
-});
-
-module.exports = mongoose.model("functions", Schema);
+}));

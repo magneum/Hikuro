@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Schema = new mongoose.Schema({
+module.exports = mongoose.model(
+  "ticketMessage",
+  new mongoose.Schema({
     Guild: String,
     openTicket: String,
-    dmMessage: String
-});
-
-module.exports = mongoose.model("ticketMessage", Schema);
+    dmMessage: String,
+  })
+);

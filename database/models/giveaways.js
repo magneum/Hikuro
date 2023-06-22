@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const Schema = new mongoose.Schema({
+
+module.exports = mongoose.model("giveaways", new mongoose.Schema({
     messageId: String,
     channelId: String,
     guildId: String,
@@ -52,6 +53,4 @@ const Schema = new mongoose.Schema({
         users: { type: [String], default: undefined },
         roles: { type: [String], default: undefined }
     }
-});
-
-module.exports = mongoose.model("giveaways", Schema);
+}));

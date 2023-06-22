@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = new mongoose.Schema({
+module.exports = mongoose.model("Profile",  new mongoose.Schema({
     User: String,
     Gender: { type: String, default: "" },
     Age: { type: String, default: "" },
@@ -17,5 +17,4 @@ const Schema = new mongoose.Schema({
     Color: { type: String, default: "" },
     Birthday: { type: String, default: "" },
 });
-
-module.exports = mongoose.model("Profile", Schema);
+);

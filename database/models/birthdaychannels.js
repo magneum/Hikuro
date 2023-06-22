@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
-const Schema = new mongoose.Schema({
-  Guild: String,
-  Channel: String,
-});
-
-module.exports = mongoose.model("birthdaychannels", Schema);
+module.exports = mongoose.model(
+  "birthdaychannels",
+  new mongoose.Schema({
+    Guild: String,
+    Channel: String,
+  })
+);

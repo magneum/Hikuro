@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Schema = new mongoose.Schema({
+module.exports = mongoose.model(
+  "stats",
+  new mongoose.Schema({
     Guild: String,
     Members: String,
     Boost: String,
@@ -17,6 +19,5 @@ const Schema = new mongoose.Schema({
     Time: String,
     TimeZone: String,
     ChannelTemplate: String,
-});
-
-module.exports = mongoose.model("stats", Schema);
+  })
+);
